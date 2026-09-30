@@ -15,7 +15,7 @@ Run `node server.mjs`, then open http://127.0.0.1:4317. The server listens only 
 
 The latest v5 paper and the September 27 teaser/method figures are used. Video chapter times are approximate; chapter thumbnails are extracted from the original video and seek within that same 4K source. The training-round explorer uses the paper's Bootstrap / Iteration 1 / Iteration 2 results and supports both a keyboard-accessible slider and stage buttons. Interaction patterns are informed by [Long-WAM](https://aaron-weihuang.com/Long-WAM-Page/#efficiency); the page keeps MobiAgent's own colors, content, figures, and media.
 
-The Code and Checkpoint buttons display icons but remain disabled until the authors provide their URLs. Author names link to the supplied OpenReview profiles, without home emojis. The website acknowledgment section has been removed; the paper PDF is unchanged. No open-source license for research assets or code has been assumed. Before publishing, confirm the repository URL, publication metadata, permissions, and preferred license; remove the noindex meta tag when the page should be searchable.
+The Checkpoint button links to `https://huggingface.co/Liukaikai/MobiAgent`; access follows that repository's permissions. The Code button remains disabled until the authors provide the research code URL. Author names link to the supplied OpenReview profiles, without home emojis. The website acknowledgment section has been removed; the paper PDF is unchanged. No open-source license for research assets or code has been assumed. Before publishing, confirm the repository URL, publication metadata, permissions, and preferred license; remove the noindex meta tag when the page should be searchable.
 
 ## Repository status
 
