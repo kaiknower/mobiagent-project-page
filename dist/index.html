@@ -33,7 +33,14 @@ Evaluations across the simulated BEHAVIOR-1K benchmark and real-world tasks demo
 </section>
 <section id="demo" class="demo-section"><div class="section-inner"><div class="section-heading"><div><p class="eyebrow">SEE IT IN ACTION</p><h2>From a plan to the real world.</h2></div><span class="duration">FULL DEMO · 2:59</span></div>
 <video id="demo-video" controls playsinline preload="metadata" poster="assets/frame-2.jpg"><source src="assets/demo-original-4k.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/demo-original-4k.mp4">Download the demo.</a></video>
-<div class="chapters" aria-label="Video chapters"><button data-time="0"><span>00:00</span>Introduction</button><button data-time="38"><span>00:38</span>Dual-loop framework</button><button data-time="68"><span>01:08</span>Real-robot execution</button><button data-time="128"><span>02:08</span>Automated training</button><button data-time="162"><span>02:42</span>Policy evolution</button></div><p class="video-status" aria-live="polite"></p>
+<p class="chapter-hint">Choose a chapter <span>Original 4K video</span></p>
+<div class="chapters" aria-label="Video chapters">
+<button data-time="0" aria-label="Play introduction at 00:00"><span class="chapter-image"><img src="assets/chapter-intro.jpg" width="800" height="450" loading="lazy" alt=""><span class="chapter-play" aria-hidden="true">▷</span></span><span class="chapter-time">00:00</span><strong>Introduction</strong></button>
+<button data-time="38" aria-label="Play dual-loop framework at 00:38"><span class="chapter-image"><img src="assets/chapter-framework.jpg" width="800" height="450" loading="lazy" alt=""><span class="chapter-play" aria-hidden="true">▷</span></span><span class="chapter-time">00:38</span><strong>Dual-loop framework</strong></button>
+<button data-time="68" aria-label="Play real-robot execution at 01:08"><span class="chapter-image"><img src="assets/chapter-execution.jpg" width="800" height="450" loading="lazy" alt=""><span class="chapter-play" aria-hidden="true">▷</span></span><span class="chapter-time">01:08</span><strong>Real-robot execution</strong></button>
+<button data-time="128" aria-label="Play automated training at 02:08"><span class="chapter-image"><img src="assets/chapter-training.jpg" width="800" height="450" loading="lazy" alt=""><span class="chapter-play" aria-hidden="true">▷</span></span><span class="chapter-time">02:08</span><strong>Automated training</strong></button>
+<button data-time="162" aria-label="Play policy evolution at 02:42"><span class="chapter-image"><img src="assets/chapter-evolution.jpg" width="800" height="450" loading="lazy" alt=""><span class="chapter-play" aria-hidden="true">▷</span></span><span class="chapter-time">02:42</span><strong>Policy evolution</strong></button>
+</div><p class="video-status" aria-live="polite"></p>
 </div></section>
 <section id="framework" class="section framework"><p class="eyebrow">THE FRAMEWORK</p><h2>Two loops. One shared skill library.</h2><p class="section-lead">Closed-loop execution meets continuous policy evolution.</p>
 <div class="loop-grid"><article class="loop inner"><p class="loop-label">INNER LOOP · DEPLOYMENT</p><h3>Plan. Execute. Reflect.</h3><p>The planner chooses the next subtask. A skill-specific action expert executes it. The critic decides whether to advance, retry, or replan from current observations.</p><div class="flow"><span>Planner</span><b>→</b><span>Executor</span><b>→</b><span>Critic</span></div></article><article class="loop outer"><p class="loop-label">OUTER LOOP · TRAINING</p><h3>Experience becomes training data.</h3><p>Deployment trajectories are segmented and verified, organized into atomic skills, and used to refine the skill library without human annotations.</p><div class="flow"><span>Curator</span><b>→</b><span>Generator</span><b>→</b><span>Trainer</span></div></article></div>
@@ -41,10 +48,37 @@ Evaluations across the simulated BEHAVIOR-1K benchmark and real-world tasks demo
 </section>
 <section id="results" class="results-section"><div class="section-inner"><p class="eyebrow">EXPERIMENTS</p><h2>Better execution.<br>Stronger skills with every round.</h2>
 <div class="results-grid"><article class="simulation"><h3>Long-horizon performance</h3><p>Mean success across four BEHAVIOR-1K tasks, with 10 trials per task under matched evaluation conditions.</p><div class="comparison"><div><span>π<sub>0.5</sub>-TA</span><div class="bar-track"><div style="width:42.5%"></div></div><strong>42.5%</strong></div><div><span>MobiAgent</span><div class="bar-track"><div class="ours" style="width:65%"></div></div><strong>65.0%</strong></div></div><p class="result-note"><strong>+22.5 percentage points</strong> over the task-specific baseline.</p></article>
-<article class="evolution"><h3>Autonomous policy evolution</h3><p>Real-robot success improves as the skill policies learn from autonomously curated deployment data.</p><div class="rounds" role="group" aria-label="Select training round"><button data-round="0" aria-pressed="false">Bootstrap</button><button data-round="1" aria-pressed="false">Iteration 1</button><button data-round="2" aria-pressed="true">Iteration 2</button></div><div class="round-score"><strong id="round-score">57.5<span>%</span></strong><p>mean success rate<br><span id="round-gain">+25.0 points from bootstrap</span></p></div><div id="task-bars" aria-live="polite"></div></article></div>
+<article class="evolution"><h3>Autonomous policy evolution</h3><p>Real-robot success improves as the skill policies learn from autonomously curated deployment data.</p>
+<div class="evolution-explorer">
+<div class="evolution-heading"><label for="round-slider">Explore the training rounds</label><output id="round-name" for="round-slider">Iteration 2</output></div>
+<input id="round-slider" type="range" min="0" max="2" step="1" value="2" aria-valuetext="Iteration 2, mean success rate 57.5 percent">
+<div class="rounds" role="group" aria-label="Select training round"><button data-round="0" aria-pressed="false">Bootstrap</button><button data-round="1" aria-pressed="false">Iteration 1</button><button data-round="2" aria-pressed="true">Iteration 2</button></div>
+<div class="evolution-metrics"><div class="round-score"><strong id="round-score">57.5<span>%</span></strong><p>mean success rate<br><span id="round-gain">+25.0 points from bootstrap</span></p></div>
+<svg class="evolution-chart" viewBox="0 0 300 112" role="img" aria-label="Mean success rate by training round: Bootstrap 32.5%, Iteration 1 40.0%, Iteration 2 57.5%.">
+<path class="chart-guide" d="M20 90H280"/><path class="chart-trail" d="M20 71L150 56L280 21"/><path id="evolution-progress" d="M20 71L150 56L280 21"/>
+<g data-stage-point="0"><circle cx="20" cy="71" r="5"/><text x="20" y="54">32.5</text></g><g data-stage-point="1"><circle cx="150" cy="56" r="5"/><text x="150" y="39">40.0</text></g><g data-stage-point="2" class="selected"><circle cx="280" cy="21" r="5"/><text x="280" y="7">57.5</text></g>
+<g class="chart-labels"><text x="20" y="108">Start</text><text x="150" y="108">Iter. 1</text><text x="280" y="108">Iter. 2</text></g></svg></div>
+<div class="task-bars-heading"><span>Real-robot task</span><span>Success rate</span></div>
+<div id="task-bars"><div class="task-bar"><span>Paper disposal</span><div class="bar-track" aria-hidden="true"><div style="width:50%"></div></div><strong>50%</strong></div><div class="task-bar"><span>Bottle disposal</span><div class="bar-track" aria-hidden="true"><div style="width:60%"></div></div><strong>60%</strong></div><div class="task-bar"><span>Can disposal</span><div class="bar-track" aria-hidden="true"><div style="width:70%"></div></div><strong>70%</strong></div><div class="task-bar"><span>Pour blue</span><div class="bar-track" aria-hidden="true"><div style="width:50%"></div></div><strong>50%</strong></div></div>
+<p class="sr-only" id="round-announcement" role="status"></p>
+</div></article></div>
 <details class="full-results"><summary>View success rates by task <span>+</span></summary><div class="table-scroll"><table><caption>Simulation · success rate (%)</caption><thead><tr><th>Method</th><th>Push radio</th><th>Dispose trash</th><th>Stack storage</th><th>Fetch beer</th><th>Mean</th></tr></thead><tbody><tr><th>π<sub>0.5</sub>-TA</th><td>60</td><td>40</td><td>60</td><td>10</td><td>42.5</td></tr><tr><th>MobiAgent</th><td>70</td><td>60</td><td>70</td><td>60</td><td>65.0</td></tr></tbody></table></div></details>
 </div></section>
 
+<section id="citation" class="section citation-section" aria-labelledby="citation-title">
+<div class="section-heading"><div><p class="eyebrow">CITE THIS WORK</p><h2 id="citation-title">BibTeX</h2></div><button id="copy-citation" class="button" type="button" aria-label="Copy BibTeX citation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3"/></svg><span>Copy BibTeX</span></button></div>
+<p class="citation-note">arXiv: <a href="https://arxiv.org/abs/2609.00000" target="_blank" rel="noopener">2609.00000 ↗</a> <span>Placeholder — replace with the official arXiv ID before release.</span></p>
+<pre class="citation-code"><code id="citation-text">@misc{liu2026mobiagent,
+  title = {From Execution to Evolution: A Dual-Loop Agentic System for Long-Horizon Mobile Manipulation},
+  author = {Chenzhi Liu and Zhang Yue and Jiehong Lin and Jianan Wang and Bo Wang and Zhongrui Wang and Xiaojuan Qi},
+  year = {2026},
+  archivePrefix = {arXiv},
+  eprint = {2609.00000},
+  primaryClass = {cs.RO},
+  url = {https://arxiv.org/abs/2609.00000}
+}</code></pre>
+<p id="citation-status" class="citation-status" role="status"></p>
+</section>
 </main>
 <footer><a class="wordmark" href="#">Mobi<span>Agent</span></a><p>From Execution to Evolution</p><a href="#title">Back to top ↑</a></footer>
 <dialog id="figure-dialog" aria-label="Expanded research figure"><div class="dialog-heading"><span id="figure-title"></span><button id="close-dialog" aria-label="Close figure">✕</button></div><img id="expanded-image" alt=""></dialog>
