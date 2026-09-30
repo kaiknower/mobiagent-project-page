@@ -1,4 +1,9 @@
 const video = document.querySelector('#demo-video');
+const researchVideos = [...document.querySelectorAll('#demo-video, .task-video')];
+researchVideos.forEach(player => player.addEventListener('play', () => {
+  researchVideos.forEach(other => { if (other !== player) other.pause(); });
+  document.querySelector('#hero-video').pause();
+}));
 const chapterButtons = [...document.querySelectorAll('[data-time]')];
 chapterButtons.forEach(button => button.addEventListener('click', async () => {
   video.currentTime = Number(button.dataset.time);
