@@ -1,0 +1,5 @@
+.DS_Store
+.openai/
+*.log
+dist/assets/demo.mp4
+dist/assets/hero.mp4
