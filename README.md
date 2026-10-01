@@ -2,7 +2,7 @@
 
 **From Execution to Evolution: A Dual-Loop Agentic System for Long-Horizon Mobile Manipulation**
 
-Project website for MobiAgent.
+[Project website](https://liu-kaikai-mobiagent.kaikaiovo.chatgpt.site)
 
 [Hugging Face Checkpoint](https://huggingface.co/Liukaikai/MobiAgent)
 
