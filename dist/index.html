@@ -60,6 +60,21 @@
 </div><p class="pipeline-return"><span aria-hidden="true">↶</span> Updated skills return to the deployment loop.</p></article>
 </div>
 <figure class="method-figure"><button class="zoom-image" data-image="assets/method.png" data-title="MobiAgent architecture" aria-label="Enlarge the framework diagram"><img src="assets/method.png" width="2200" height="1757" loading="lazy" alt="Architecture with Planner, Executor and Critic in the inner loop, and Data Curator, Skill Generator and Skill Trainer in the outer loop."><span>Explore the architecture ↗</span></button><figcaption>A shared VLM backbone supports reusable, skill-specific action experts.</figcaption></figure>
+<article class="skill-routing" aria-labelledby="skill-routing-title">
+<div class="routing-heading"><div><p class="eyebrow">INSIDE THE SKILL EXECUTOR</p><h3 id="skill-routing-title">Shared perception. Specialized actions.</h3></div><p>The instruction selects an action expert. Visual and language understanding stay shared across the skill library.</p></div>
+<div class="routing-diagram" aria-label="Observations and an instruction pass through a shared VLM backbone and a selected skill expert to produce an action chunk.">
+<div class="routing-node routing-input"><span class="routing-kicker">INPUT</span><strong>Observations<br>+ instruction</strong><span>What the robot sees and what to do next</span></div>
+<span class="routing-connector" aria-hidden="true">→</span>
+<div class="routing-node routing-backbone"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5 35 13v14L20 35 5 27V13zM5 13l15 8 15-8M20 21v14M12 9l15 8v14"/></svg><span class="routing-kicker">SHARED VLM</span><strong>One backbone</strong><span>Common visual-language features</span></div>
+<span class="routing-connector" aria-hidden="true">→</span>
+<div class="routing-node routing-expert"><span class="routing-kicker">ACTIVE EXPERT</span><strong id="routing-expert-name">Pick up</strong><span>Skill-specific flow-matching control</span></div>
+<span class="routing-connector" aria-hidden="true">→</span>
+<div class="routing-node routing-output"><span class="routing-kicker">OUTPUT</span><strong>Action chunk</strong><span>Coordinated robot motion</span><svg class="action-wave" viewBox="0 0 120 28" aria-hidden="true"><path d="M2 22 17 18 32 19 47 10 62 13 77 6 92 8 118 3"/><path d="M2 7 17 11 32 8 47 17 62 13 77 20 92 15 118 23"/></svg></div>
+</div>
+<div class="skill-selector"><p id="skill-selector-label">Select an atomic skill</p><div class="skill-buttons" role="group" aria-labelledby="skill-selector-label"><button type="button" data-skill="move" aria-pressed="false" aria-controls="routing-detail">Move to</button><button type="button" data-skill="pick" aria-pressed="true" aria-controls="routing-detail">Pick up</button><button type="button" data-skill="place-in" aria-pressed="false" aria-controls="routing-detail">Place in</button><button type="button" data-skill="place-on" aria-pressed="false" aria-controls="routing-detail">Place on</button><button type="button" data-skill="open" aria-pressed="false" aria-controls="routing-detail">Open</button><button type="button" data-skill="close" aria-pressed="false" aria-controls="routing-detail">Close</button></div></div>
+<div id="routing-detail" class="routing-detail" aria-live="polite"><div><span class="routing-kicker">EXAMPLE INSTRUCTION</span><p id="routing-instruction">“Pick up the soda can.”</p></div><p id="routing-explanation">The picking expert handles grasping; the same expert can be reused for different objects and long-horizon tasks.</p></div>
+<p class="routing-caption">Choose a BEHAVIOR-style atomic skill to explore its expert and example instruction.</p>
+</article>
 </section>
 <section id="results" class="results-section"><div class="section-inner"><p class="eyebrow">EXPERIMENTS</p><h2>Better execution.<br>Learning from deployment.</h2>
 <div class="result-highlights" aria-label="Key research results">
@@ -88,6 +103,19 @@
 <p class="sr-only" id="round-announcement" role="status"></p>
 </div></article></div>
 <details class="full-results"><summary>View success rates by task <span>+</span></summary><div class="table-scroll"><table><caption>Simulation · success rate (%)</caption><thead><tr><th>Method</th><th>Push radio</th><th>Dispose trash</th><th>Stack storage</th><th>Fetch beer</th><th>Mean</th></tr></thead><tbody><tr><th>π<sub>0.5</sub>-TA</th><td>60</td><td>40</td><td>60</td><td>10</td><td>42.5</td></tr><tr><th>MobiAgent</th><td>70</td><td>60</td><td>70</td><td>60</td><td>65.0</td></tr></tbody></table></div></details>
+<article id="ablations" class="ablation-section" aria-labelledby="ablation-title">
+<div class="ablation-heading"><div><p class="eyebrow">COMPONENT ABLATIONS · BEHAVIOR-1K</p><h3 id="ablation-title">What makes the system work?</h3></div><div class="ablation-toggle" role="group" aria-label="Choose ablation evaluation"><button type="button" data-ablation="mean" aria-pressed="true" aria-controls="ablation-chart">Four-task mean</button><button type="button" data-ablation="trash" aria-pressed="false" aria-controls="ablation-chart">Dispose-trash</button></div></div>
+<div class="ablation-layout"><div id="ablation-chart" class="ablation-chart" aria-label="Component ablations, mean success rate across four BEHAVIOR-1K tasks"><p class="ablation-axis">Task success rate <span>%</span></p>
+<div class="ablation-row" data-ablation-row="0"><span>Fixed task-specific sub-tasks</span><div class="ablation-track" aria-hidden="true"><div style="width:20%"></div></div><strong>20.0%</strong></div>
+<div class="ablation-row" data-ablation-row="1"><span>Single shared action head</span><div class="ablation-track" aria-hidden="true"><div style="width:50%"></div></div><strong>50.0%</strong></div>
+<div class="ablation-row" data-ablation-row="2"><span>Without Reflection Critic</span><div class="ablation-track" aria-hidden="true"><div style="width:10%"></div></div><strong>10.0%</strong></div>
+<div class="ablation-row" data-ablation-row="3"><span>Without global replanning</span><div class="ablation-track" aria-hidden="true"><div style="width:40%"></div></div><strong>40.0%</strong></div>
+<div class="ablation-row ablation-full" data-ablation-row="4"><span>MobiAgent · full system</span><div class="ablation-track" aria-hidden="true"><div style="width:65%"></div></div><strong>65.0%</strong></div>
+<p id="ablation-comparison" class="ablation-comparison" role="status">Global replanning adds 25.0 percentage points to mean success: 40.0% → 65.0%.</p></div>
+<aside class="recovery-evidence" aria-label="Recovery evidence"><span class="routing-kicker">WHY REPLAN?</span><h4>A retry repeats the skill.<br>A replan changes the sequence.</h4><p>The variant without global replanning keeps visual verification, but ignores replan signals and can only retry the current skill.</p><dl><div><dt>39<span>%</span></dt><dd>of successful episodes required at least one replan.</dd></div><div><dt>0.95</dt><dd>replans per successful episode on average, with a maximum budget of three.</dd></div></dl></aside>
+</div>
+<details class="full-results ablation-table"><summary>View the complete ablation table <span aria-hidden="true">+</span></summary><div class="table-scroll" tabindex="0" aria-label="BEHAVIOR-1K component ablation table"><table><caption>BEHAVIOR-1K · task success rate (%)</caption><thead><tr><th scope="col">Method</th><th scope="col">Push radio</th><th scope="col">Dispose trash</th><th scope="col">Stack storage</th><th scope="col">Fetch beer</th><th scope="col">Mean</th></tr></thead><tbody><tr><th scope="row">Fixed task-specific sub-tasks (w/o Planner)</th><td>50</td><td>0</td><td>0</td><td>30</td><td>20.0</td></tr><tr><th scope="row">Single shared action head</th><td>70</td><td>40</td><td>50</td><td>40</td><td>50.0</td></tr><tr><th scope="row">Without Reflection Critic</th><td>30</td><td>10</td><td>0</td><td>0</td><td>10.0</td></tr><tr><th scope="row">Without global replanning</th><td>70</td><td>40</td><td>30</td><td>20</td><td>40.0</td></tr><tr><th scope="row">MobiAgent (Full)</th><td>70</td><td>60</td><td>70</td><td>60</td><td>65.0</td></tr></tbody></table></div></details>
+</article>
 </div></section>
 
 <section id="citation" class="section citation-section" aria-labelledby="citation-title">

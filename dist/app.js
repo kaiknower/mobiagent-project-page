@@ -62,3 +62,34 @@ copyCitation.addEventListener('click', async () => {
     status.textContent = 'Select the BibTeX text above and copy it manually.';
   }
 });
+
+const skillRoutes = {
+  move: { name: 'Move to', instruction: 'Move to the trash bin.', explanation: 'The navigation expert moves the robot toward the next interaction location, using the shared visual-language features.' },
+  pick: { name: 'Pick up', instruction: 'Pick up the soda can.', explanation: 'The picking expert handles grasping; the same expert can be reused for different objects and long-horizon tasks.' },
+  'place-in': { name: 'Place in', instruction: 'Place the can in the trash bin.', explanation: 'The container-placement expert controls putting a held object inside a destination such as a bin or box.' },
+  'place-on': { name: 'Place on', instruction: 'Place the object on the table.', explanation: 'Surface placement has its own expert, separating the motion of placing an object on a support from placing it inside a container.' },
+  open: { name: 'Open', instruction: 'Open the cabinet door.', explanation: 'The opening expert handles articulated-object interaction while sharing perception and language understanding with the other skills.' },
+  close: { name: 'Close', instruction: 'Close the cabinet door.', explanation: 'The closing expert produces the corresponding control actions; the instruction and observation select the route through the shared backbone.' },
+};
+document.querySelectorAll('[data-skill]').forEach(button => button.addEventListener('click', () => {
+  const route = skillRoutes[button.dataset.skill];
+  document.querySelectorAll('[data-skill]').forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+  document.querySelector('#routing-expert-name').textContent = route.name;
+  document.querySelector('#routing-instruction').textContent = `“${route.instruction}”`;
+  document.querySelector('#routing-explanation').textContent = route.explanation;
+}));
+
+const ablationViews = {
+  mean: { rates: [20, 50, 10, 40, 65], label: 'Component ablations, mean success rate across four BEHAVIOR-1K tasks', comparison: 'Global replanning adds 25.0 percentage points to mean success: 40.0% → 65.0%.' },
+  trash: { rates: [0, 40, 10, 40, 60], label: 'Component ablations, success rate on the BEHAVIOR-1K dispose-trash task', comparison: 'On dispose-trash, global replanning adds 20.0 percentage points: 40.0% → 60.0%.' },
+};
+document.querySelectorAll('[data-ablation]').forEach(button => button.addEventListener('click', () => {
+  const view = ablationViews[button.dataset.ablation];
+  document.querySelectorAll('[data-ablation]').forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+  document.querySelector('#ablation-chart').setAttribute('aria-label', view.label);
+  document.querySelectorAll('[data-ablation-row]').forEach((row, index) => {
+    row.querySelector('.ablation-track>div').style.width = `${view.rates[index]}%`;
+    row.querySelector('strong').textContent = `${view.rates[index].toFixed(1)}%`;
+  });
+  document.querySelector('#ablation-comparison').textContent = view.comparison;
+}));
