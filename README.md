@@ -2,7 +2,7 @@
 
 **MobiAgent: Dual-Loop Recursive Policy Self-Improvement for Long-Horizon Mobile Manipulation**
 
-[Project website](https://kaiknower.github.io/mobiagent/) · [Code](https://github.com/kaiknower/MobiAgent)
+[Paper](https://arxiv.org/abs/2610.03476) · [Project website](https://kaiknower.github.io/mobiagent/) · [Code](https://github.com/kaiknower/MobiAgent)
 
 [Hugging Face Checkpoint](https://huggingface.co/Liukaikai/MobiAgent)
 
