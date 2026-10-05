@@ -57,7 +57,7 @@ copyCitation.addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(document.querySelector('#citation-text').textContent.trim());
     copyCitation.querySelector('span').textContent = 'Copied!';
-    status.textContent = 'BibTeX copied. The arXiv ID is a placeholder.';
+    status.textContent = 'BibTeX copied.';
   } catch {
     status.textContent = 'Select the BibTeX text above and copy it manually.';
   }
